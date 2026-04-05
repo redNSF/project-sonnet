@@ -58,6 +58,28 @@
   --shadow-md:          0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
+/* ── Prevent Animation FOUC ─────────────────────────────────── */
+html.js-loading .hero-eyebrow,
+html.js-loading .hero-title,
+html.js-loading .hero-sub,
+html.js-loading .hero-actions,
+html.js-loading .nav,
+html.js-loading .section-header,
+html.js-loading .card-category,
+html.js-loading .card-product,
+html.js-loading .trust-bar-item,
+html.js-loading .hiw-strip-item,
+html.js-loading .hiw-step,
+html.js-loading .testimonial-card,
+html.js-loading .cta-banner > *,
+html.js-loading .sub-card,
+html.js-loading .card-order,
+html.js-loading main h1:not(.hero-title),
+html.js-loading .dash-page-title {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
 /* ── Reset ─────────────────────────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;

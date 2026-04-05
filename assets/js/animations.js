@@ -4,7 +4,10 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   // Wait for GSAP to be available
-  if (typeof gsap === 'undefined') return;
+  if (typeof gsap === 'undefined') {
+    document.documentElement.classList.remove('js-loading');
+    return;
+  }
 
   // Register ScrollTrigger plugin
   if (typeof ScrollTrigger !== 'undefined') {
@@ -124,4 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
       gsap.from(pageH1, { opacity: 0, y: 16, duration: 0.4, ease: 'power2.out' });
     }
   }
+
+  // Remove loading class to reveal elements once GSAP has applied initial states
+  document.documentElement.classList.remove('js-loading');
 });

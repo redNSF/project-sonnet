@@ -12,4 +12,7 @@
   } else {
     document.documentElement.removeAttribute('data-theme');
   }
+
+  // Add class to prevent animation FOUC
+  document.documentElement.classList.add('js-loading');
 })();
