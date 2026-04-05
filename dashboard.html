@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — InfinityDigitalShop</title>
+  <meta name="description" content="Manage your subscriptions, view credentials, and track your order history.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <script src="assets/js/theme-init.js"></script>
+  <style>
+    .sub-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .dash-page-title {
+      font-size: 22px;
+      font-weight: 300;
+      margin-bottom: 28px;
+      letter-spacing: -0.02em;
+    }
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+    }
+    .settings-form {
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    @media (max-width: 768px) {
+      .nav-links-sidebar {
+        display: none;
+      }
+      .sidebar-nav-item span.label-text { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="ambient-bg">
+  <div class="ambient-orb orb-1"></div>
+  <div class="ambient-orb orb-2"></div>
+  <div class="ambient-orb orb-3"></div>
+</div>
+
+<div id="nav-placeholder"></div>
+
+<div class="dashboard-layout">
+
+  <!-- ── SIDEBAR ─────────────────────────────────────────────── -->
+  <aside class="dashboard-sidebar">
+    <div class="sidebar-user">
+      <div class="sidebar-avatar" id="sidebar-avatar">J</div>
+      <div class="sidebar-user-name" id="sidebar-name">John Smith</div>
+      <div class="sidebar-user-email" id="sidebar-email">john@email.com</div>
+    </div>
+    <nav class="sidebar-nav">
+      <button class="sidebar-nav-item active" onclick="showTab('subscriptions', this)" id="tab-btn-subscriptions">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        My Subscriptions
+      </button>
+      <button class="sidebar-nav-item" onclick="showTab('orders', this)" id="tab-btn-orders">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        Order History
+      </button>
+      <button class="sidebar-nav-item" onclick="showTab('settings', this)" id="tab-btn-settings">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Account Settings
+      </button>
+      <div style="margin-top:auto;padding-top:16px;border-top:1px solid var(--color-border);margin-top:16px;">
+        <a href="login.html" class="sidebar-nav-item logout" style="text-decoration:none;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Logout
+        </a>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- ── MAIN CONTENT ────────────────────────────────────────── -->
+  <main class="dashboard-main">
+
+    <!-- My Subscriptions Tab -->
+    <div class="dash-tab-content active" id="tab-subscriptions">
+      <h2 class="dash-page-title">My Subscriptions</h2>
+      <div class="sub-grid">
+
+        <!-- Netflix -->
+        <div class="sub-card">
+          <div class="sub-card-header">
+            <div class="sub-card-logo logo-netflix">N</div>
+            <div class="sub-card-info">
+              <div class="sub-card-name">Netflix Premium</div>
+              <div class="sub-card-meta">12 months · Expires Dec 2025</div>
+            </div>
+            <span class="badge badge-green">Active</span>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-outline btn-sm" onclick="toggleCreds(this)">View Credentials</button>
+          </div>
+          <div class="sub-credentials">
+            <div class="sub-cred-row">
+              <span class="sub-cred-label">Email</span>
+              <span class="sub-cred-value">user_netflix_7241@shared.io</span>
+            </div>
+            <div class="sub-cred-row" style="margin-top:8px;">
+              <span class="sub-cred-label">Password</span>
+              <span class="sub-cred-value">Nx#7kp2mQ9</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Spotify -->
+        <div class="sub-card">
+          <div class="sub-card-header">
+            <div class="sub-card-logo logo-spotify">S</div>
+            <div class="sub-card-info">
+              <div class="sub-card-name">Spotify Premium</div>
+              <div class="sub-card-meta">6 months · Expires Oct 2025</div>
+            </div>
+            <span class="badge badge-warning">Expiring Soon</span>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-outline btn-sm" onclick="toggleCreds(this)">View Credentials</button>
+            <a href="product.html?id=spotify-premium" class="btn btn-primary btn-sm">Renew</a>
+          </div>
+          <div class="sub-credentials">
+            <div class="sub-cred-row">
+              <span class="sub-cred-label">Email</span>
+              <span class="sub-cred-value">user_sp_4419@family.io</span>
+            </div>
+            <div class="sub-cred-row" style="margin-top:8px;">
+              <span class="sub-cred-label">Password</span>
+              <span class="sub-cred-value">Sp$5mzL8w@</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ChatGPT -->
+        <div class="sub-card">
+          <div class="sub-card-header">
+            <div class="sub-card-logo logo-chatgpt">C</div>
+            <div class="sub-card-info">
+              <div class="sub-card-name">ChatGPT Plus</div>
+              <div class="sub-card-meta">3 months · Expires Jul 2025</div>
+            </div>
+            <span class="badge badge-green">Active</span>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-outline btn-sm" onclick="toggleCreds(this)">View Credentials</button>
+          </div>
+          <div class="sub-credentials">
+            <div class="sub-cred-row">
+              <span class="sub-cred-label">Email</span>
+              <span class="sub-cred-value">user_cgp_9931@shared.io</span>
+            </div>
+            <div class="sub-cred-row" style="margin-top:8px;">
+              <span class="sub-cred-label">Password</span>
+              <span class="sub-cred-value">Gp!9kRx7mQ</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Add More -->
+        <div class="sub-card" style="align-items:center;justify-content:center;border-style:dashed;cursor:pointer;min-height:160px;" onclick="window.location.href='shop.html'">
+          <div style="text-align:center;">
+            <div style="font-size:32px;margin-bottom:8px;color:var(--color-text-muted);">+</div>
+            <div style="font-size:14px;font-weight:500;color:var(--color-text-muted);">Add New Subscription</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Order History Tab -->
+    <div class="dash-tab-content" id="tab-orders">
+      <h2 class="dash-page-title">Order History</h2>
+      <div class="table-wrap">
+        <table class="order-table">
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Service</th>
+              <th>Duration</th>
+              <th>Date</th>
+              <th>Price</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-family:'Courier New',monospace;font-size:12px;color:var(--color-text-muted);">#SS-4MA9KX</td>
+              <td>Netflix Premium</td>
+              <td>12 Months</td>
+              <td>Jan 4, 2025</td>
+              <td style="font-weight:500;">$79.99</td>
+              <td><span class="badge badge-green">Delivered</span></td>
+            </tr>
+            <tr>
+              <td style="font-family:'Courier New',monospace;font-size:12px;color:var(--color-text-muted);">#SS-7BZ2QR</td>
+              <td>Spotify Premium</td>
+              <td>6 Months</td>
+              <td>Dec 12, 2024</td>
+              <td style="font-weight:500;">$28.99</td>
+              <td><span class="badge badge-green">Delivered</span></td>
+            </tr>
+            <tr>
+              <td style="font-family:'Courier New',monospace;font-size:12px;color:var(--color-text-muted);">#SS-1CW5NP</td>
+              <td>ChatGPT Plus</td>
+              <td>3 Months</td>
+              <td>Apr 3, 2025</td>
+              <td style="font-weight:500;">$32.99</td>
+              <td><span class="badge badge-green">Delivered</span></td>
+            </tr>
+            <tr>
+              <td style="font-family:'Courier New',monospace;font-size:12px;color:var(--color-text-muted);">#SS-9DT3LV</td>
+              <td>NordVPN</td>
+              <td>1 Month</td>
+              <td>Mar 10, 2025</td>
+              <td style="font-weight:500;">$4.99</td>
+              <td><span class="badge badge-gray">Expired</span></td>
+            </tr>
+            <tr>
+              <td style="font-family:'Courier New',monospace;font-size:12px;color:var(--color-text-muted);">#SS-2FH8MK</td>
+              <td>Adobe Creative Cloud</td>
+              <td>1 Month</td>
+              <td>Feb 18, 2025</td>
+              <td style="font-weight:500;">$19.99</td>
+              <td><span class="badge badge-gray">Expired</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Account Settings Tab -->
+    <div class="dash-tab-content" id="tab-settings">
+      <h2 class="dash-page-title">Account Settings</h2>
+      <div class="settings-form">
+        <div class="form-group">
+          <label class="form-label" for="settings-name">Full Name</label>
+          <input type="text" id="settings-name" class="form-input" value="John Smith">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="settings-email">Email Address</label>
+          <input type="email" id="settings-email" class="form-input" value="john@email.com">
+        </div>
+
+        <div class="divider"></div>
+
+        <p style="font-size:14px;font-weight:500;margin-bottom:4px;">Change Password</p>
+        <div class="form-group">
+          <label class="form-label" for="settings-current-pass">Current Password</label>
+          <input type="password" id="settings-current-pass" class="form-input" placeholder="••••••••">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="settings-new-pass">New Password</label>
+          <input type="password" id="settings-new-pass" class="form-input" placeholder="At least 8 characters">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="settings-confirm-pass">Confirm New Password</label>
+          <input type="password" id="settings-confirm-pass" class="form-input" placeholder="Repeat new password">
+        </div>
+
+        <button class="btn btn-primary" id="settings-save-btn" style="align-self:flex-start;">Save Changes</button>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/ScrollTrigger.min.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/animations.js"></script>
+<script>
+// Tab switching
+function showTab(tabId, btn) {
+  document.querySelectorAll('.dash-tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.sidebar-nav-item').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + tabId)?.classList.add('active');
+  btn?.classList.add('active');
+}
+
+// Credentials toggle
+function toggleCreds(btn) {
+  const card = btn.closest('.sub-card');
+  const creds = card.querySelector('.sub-credentials');
+  const isVisible = creds.classList.contains('visible');
+  creds.classList.toggle('visible');
+  btn.textContent = isVisible ? 'View Credentials' : 'Hide Credentials';
+}
+
+// Settings save
+document.getElementById('settings-save-btn')?.addEventListener('click', () => {
+  const newPass    = document.getElementById('settings-new-pass')?.value;
+  const confirmPass = document.getElementById('settings-confirm-pass')?.value;
+  if (newPass && newPass !== confirmPass) {
+    window.SubStore?.showToast('Passwords do not match', 'error');
+    return;
+  }
+  window.SubStore?.showToast('Settings saved successfully');
+});
+</script>
+</body>
+</html>

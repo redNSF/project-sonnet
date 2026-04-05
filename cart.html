@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart — InfinityDigitalShop</title>
+  <meta name="description" content="Review your cart and proceed to checkout.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <script src="assets/js/theme-init.js"></script>
+  <style>
+    .cart-layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 48px;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .cart-layout { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="ambient-bg">
+  <div class="ambient-orb orb-1"></div>
+  <div class="ambient-orb orb-2"></div>
+  <div class="ambient-orb orb-3"></div>
+</div>
+
+<div id="nav-placeholder"></div>
+
+<main>
+  <section class="section">
+    <div class="container">
+
+      <div style="margin-bottom:40px;">
+        <p class="eyebrow" style="margin-bottom:8px;">Review</p>
+        <h1 class="section-title">Your Cart <span id="cart-item-count" style="color:var(--color-text-muted);font-size:1.5rem;"></span></h1>
+      </div>
+
+      <div class="cart-layout">
+        <!-- LEFT: Cart Items -->
+        <div>
+          <!-- Empty State -->
+          <div id="cart-empty" style="display:none;padding:80px 0;text-align:center;">
+            <div style="font-size:48px;margin-bottom:16px;">🛒</div>
+            <p style="font-size:17px;margin-bottom:8px;font-weight:500;">Your cart is empty</p>
+            <p class="text-muted" style="margin-bottom:24px;font-size:14px;">Browse our plans and add something you love.</p>
+            <a href="shop.html" class="btn btn-primary">Browse Plans</a>
+          </div>
+
+          <!-- Cart Items List -->
+          <div id="cart-items-list"></div>
+        </div>
+
+        <!-- RIGHT: Order Summary -->
+        <div id="cart-summary-section" style="display:none;">
+          <div class="order-summary-card">
+            <h3>Order Summary</h3>
+
+            <div class="order-summary-row">
+              <span class="text-muted">Subtotal</span>
+              <span id="cart-subtotal">$0.00</span>
+            </div>
+            <div class="order-summary-row" id="discount-row" style="display:none;">
+              <span class="text-muted">Discount</span>
+              <span id="discount-amount" style="color:var(--color-success);"></span>
+            </div>
+
+            <div class="coupon-input-row">
+              <input type="text" id="coupon-code" class="form-input" placeholder="Coupon code">
+              <button id="apply-coupon" class="btn btn-outline btn-sm" style="white-space:nowrap;">Apply</button>
+            </div>
+
+            <div class="order-summary-row total">
+              <span>Total</span>
+              <span id="cart-total">$0.00</span>
+            </div>
+
+            <a href="checkout.html" class="btn btn-primary btn-full" style="margin-top:20px;display:block;text-align:center;">
+              Proceed to Checkout
+            </a>
+
+            <div style="margin-top:20px;padding-top:20px;border-top:1px solid var(--color-border);display:flex;flex-direction:column;gap:10px;">
+              <div class="trust-item">
+                <div class="trust-check">✓</div>
+                <span>Instant Delivery</span>
+              </div>
+              <div class="trust-item">
+                <div class="trust-check">✓</div>
+                <span>30-Day Warranty</span>
+              </div>
+              <div class="trust-item">
+                <div class="trust-check">✓</div>
+                <span>Secure Payment</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<div id="footer-placeholder"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/ScrollTrigger.min.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/cart.js"></script>
+<script src="assets/js/animations.js"></script>
+</body>
+</html>
